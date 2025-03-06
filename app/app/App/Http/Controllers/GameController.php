@@ -132,7 +132,14 @@ class GameController extends Controller
         // Inside of $player you have the player which wants to play now.
         // If he is allowed to play, you have to return true, otherwise you have to return false.
 
-        return true;
+        //check if last player is this player
+        $lastPlayer = $game->getLastPlayer();
+        if ($player != $lastPlayer) {
+            //player allowed to play the turn
+            return true;
+        }
+        //player attempting to take double turn
+        return false;
     }
 
     /**
@@ -174,7 +181,7 @@ class GameController extends Controller
         //
         // Once all the checks have passed, you can finally update the game board by calling
         // $game->setSpace( $x, $y, GameMark::Circle ).
-        
+
         //check if coordinates !empty
         $GameMark = $game->getSpace($x, $y);
         if($GameMark !== GameMark::None) {
