@@ -50,8 +50,8 @@ class GameController extends Controller
         // remove spaces and line breaks ;)
         // =============================================================================================================
         //testLines returning true if wincon reached in specified area
-        if ($this->testLines($game, "getRow", 3)||
-            $this->testLines($game, "getColumn", 3)||
+        if ($this->testLines($game, "getRow", 4)||
+            $this->testLines($game, "getColumn", 4)||
             $this->testLines($game, "getMainDiagonal", 1)||
             $this->testLines($game, "getAntiDiagonal", 1))
             return true;
@@ -71,6 +71,7 @@ class GameController extends Controller
             if (    // Check lines
                 $game->$lineToTest($x)->getSpace( 0 ) === $game->$lineToTest($x)->getSpace( 1 ) &&
                 $game->$lineToTest($x)->getSpace( 0 ) === $game->$lineToTest($x)->getSpace( 2 ) &&
+                $game->$lineToTest($x)->getSpace( 0 ) === $game->$lineToTest($x)->getSpace( 3 ) &&
                 $game->$lineToTest($x)->getSpace( 0 ) !== GameMark::None
             ) return true;
         }
@@ -138,7 +139,7 @@ class GameController extends Controller
 
         // Check if the given position is actually valid; can't have the player draw a cross on the table next to the
         // game board ;)
-        if ($x < 0 || $x > 2 || $y < 0 || $y > 2)
+        if ($x < 0 || $x > 3 || $y < 0 || $y > 3)
             return response("Position outside of the game board")->setStatusCode(422)->header('Content-Type', 'text/plain');
 
         // Prevent the player from playing if the game has already ended
