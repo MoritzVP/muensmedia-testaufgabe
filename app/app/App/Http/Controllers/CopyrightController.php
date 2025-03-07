@@ -7,11 +7,9 @@ use Illuminate\Http\Response;
 class CopyrightController extends Controller
 {
     public const HEADER = "
-.-----. _            .-----.                .-----.
-`-. .-':_;           `-. .-'                `-. .-'
-  : :  .-. .--.  _____ : : .--.   .--.  _____ : : .--.  .--.
-  : :  : :'  ..':_____:: :' .; ; '  ..':_____:: :' .; :' '_.'
-  :_;  :_;`.__.'       :_;`.__,_;`.__.'       :_;`.__.'`.__.'
+      /   _____________________         
+     /__|   |  _ \  .  / | |\ |
+        |   | |_| \/ \/  | | \|
         ";
 
     // Generated with  https://patorjk.com/software/taag/
