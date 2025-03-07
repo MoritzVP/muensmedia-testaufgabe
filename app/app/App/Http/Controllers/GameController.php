@@ -49,7 +49,50 @@ class GameController extends Controller
         // shorten this function without compromising its functionality. Note that by "shorten", we don't mean to just
         // remove spaces and line breaks ;)
         // =============================================================================================================
-
+        //testLines returning true if wincon reached in specified area
+        if ($this->testLines($game, "getRow", 3)||
+            $this->testLines($game, "getColumn", 3)||
+            $this->testLines($game, "getMainDiagonal", 1)||
+            $this->testLines($game, "getAntiDiagonal", 1))
+            return true;
+        //no wincon reached
+        return false;
+    }
+    
+    /**
+     * @param GameBoard $game
+     * @return bool
+     * @throws Exception
+     */
+    protected function testLines( Gameboard $game, $lineToTest, $y ): bool {
+        //testLines($game, directionOfLinesToTest, amountOfLinesToTest)
+        //will return true if a wincon in the requested area is reached
+        for ($x = 0; $x <= $y-1; $x++) {
+            if (    // Check lines
+                $game->$lineToTest($x)->getSpace( 0 ) === $game->$lineToTest($x)->getSpace( 1 ) &&
+                $game->$lineToTest($x)->getSpace( 0 ) === $game->$lineToTest($x)->getSpace( 2 ) &&
+                $game->$lineToTest($x)->getSpace( 0 ) !== GameMark::None
+            ) return true;
+        }
+        return false;
+    }
+        /*
+        for ($x = 0; $x <= 2; $x++) {
+            if (    // Check rows
+                $game->getRow($x)->getSpace( 0 ) === $game->getRow($x)->getSpace( 1 ) &&
+                $game->getRow($x)->getSpace( 0 ) === $game->getRow($x)->getSpace( 2 ) &&
+                $game->getRow($x)->getSpace( 0 ) !== GameMark::None
+            ) return true;
+        }
+        for ($x = 0; $x <= 2; $x++) {
+            if (    // Check columns
+                $game->getColumn($x)->getSpace( 0 ) === $game->getColumn($x)->getSpace( 1 ) &&
+                $game->getColumn($x)->getSpace( 0 ) === $game->getColumn($x)->getSpace( 2 ) &&
+                $game->getColumn($x)->getSpace( 0 ) !== GameMark::None
+            ) return true;
+        }
+        */
+        /*
         if (    // Check the first row
             $game->getRow(0)->getSpace( 0 ) === $game->getRow(0)->getSpace( 1 ) &&
             $game->getRow(0)->getSpace( 0 ) === $game->getRow(0)->getSpace( 2 ) &&
@@ -67,6 +110,7 @@ class GameController extends Controller
             $game->getRow(2)->getSpace( 0 ) === $game->getRow(2)->getSpace( 2 ) &&
             $game->getRow(2)->getSpace( 0 ) !== GameMark::None
         ) return true;
+
 
         if (    // Check the first column
             $game->getColumn(0)->getSpace( 0 ) === $game->getColumn(0)->getSpace( 1 ) &&
@@ -86,6 +130,7 @@ class GameController extends Controller
             $game->getColumn(2)->getSpace( 0 ) !== GameMark::None
         ) return true;
 
+
         if (    // Check the main diagonal
             $game->getMainDiagonal(0)->getSpace( 0 ) === $game->getMainDiagonal(0)->getSpace( 1 ) &&
             $game->getMainDiagonal(0)->getSpace( 0 ) === $game->getMainDiagonal(0)->getSpace( 2 ) &&
@@ -97,9 +142,9 @@ class GameController extends Controller
             $game->getAntiDiagonal(0)->getSpace( 0 ) === $game->getAntiDiagonal(0)->getSpace( 2 ) &&
             $game->getAntiDiagonal(0)->getSpace( 0 ) !== GameMark::None
         ) return true;
-
         return false;
-    }
+        */
+    
 
     protected function whoHasWon( GameBoard $game ): ?GamePlayer {
         // ##### TASK 8 - Check who has won ############################################################################
